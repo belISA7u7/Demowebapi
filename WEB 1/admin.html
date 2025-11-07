@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Zapatillas Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <h4 class="text-center mb-4">Panel Admin</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-house"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#productos">
+                            <i class="bi bi-bag"></i> Productos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#usuarios">
+                            <i class="bi bi-people"></i> Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-arrow-left"></i> Volver a la Tienda
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4 py-4">
+                <h1 class="mb-4">Panel de Administración</h1>
+                
+                <!-- Gestión de Productos -->
+                <div id="productos" class="admin-section">
+                    <h2 class="mb-4">Gestión de Productos</h2>
+                    
+                    <!-- Formulario de Productos -->
+                    <form id="productForm" class="mb-5">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="productName" class="form-label">Nombre del Producto</label>
+                                <input type="text" class="form-control" id="productName" required 
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Ingresa el nombre completo del producto">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="productPrice" class="form-label">Precio ($)</label>
+                                <input type="number" class="form-control" id="productPrice" min="0" step="0.01" required
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Precio en dólares del producto">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="productCategory" class="form-label">Categoría</label>
+                                <select class="form-select" id="productCategory" required
+                                        data-bs-toggle="tooltip" data-bs-placement="top" 
+                                        title="Selecciona la categoría del producto">
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="men">Hombres</option>
+                                    <option value="women">Mujeres</option>
+                                    <option value="kids">Niños</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="productImage" class="form-label">URL de la Imagen</label>
+                                <input type="url" class="form-control" id="productImage" required
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Ingresa la URL de la imagen del producto">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="productDescription" rows="3" required
+                                      data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Describe las características principales del producto"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                    </form>
+                    
+                    <!-- Tabla de Productos -->
+                    <h3 class="mb-3">Lista de Productos</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Categoría</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <!-- Los productos se agregarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Gestión de Usuarios -->
+                <div id="usuarios" class="admin-section">
+                    <h2 class="mb-4">Gestión de Usuarios</h2>
+                    
+                    <!-- Formulario de Usuarios -->
+                    <form id="userForm" class="mb-5">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="userName" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="userName" required
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Nombre completo del usuario">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="userEmail" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="userEmail" required
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Correo electrónico válido del usuario">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="userPassword" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="userPassword" required
+                                       data-bs-toggle="tooltip" data-bs-placement="top" 
+                                       title="Contraseña segura de al menos 8 caracteres">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="userRole" class="form-label">Rol</label>
+                                <select class="form-select" id="userRole" required
+                                        data-bs-toggle="tooltip" data-bs-placement="top" 
+                                        title="Selecciona el nivel de acceso del usuario">
+                                    <option value="">Selecciona un rol</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="editor">Editor</option>
+                                    <option value="viewer">Solo lectura</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                    </form>
+                    
+                    <!-- Tabla de Usuarios -->
+                    <h3 class="mb-3">Usuarios del Sistema</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <!-- Los usuarios se agregarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript para el panel de administración -->
+    <script src="admin.js"></script>
+</body>
+</html>
