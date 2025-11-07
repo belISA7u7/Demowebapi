@@ -1,9 +1,25 @@
 [
   {
     "ContainingType": "WebAPI1.Controllers.UsersController",
+    "Method": "Delete",
+    "RelativePath": "api/Users/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebAPI1.Models.DTOs.DeleteUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI1.Controllers.UsersController",
     "Method": "Obtener",
     "RelativePath": "api/Users/obtener",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -20,6 +36,38 @@
       {
         "Name": "dto",
         "Type": "WebAPI1.Models.DTOs.RegisterUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI1.Controllers.UsersController",
+    "Method": "Update",
+    "RelativePath": "api/Users/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebAPI1.Models.DTOs.UpdateUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI1.Controllers.UsersController",
+    "Method": "UpdateEmail",
+    "RelativePath": "api/Users/updateemail",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "WebAPI1.Models.DTOs.UpdateEmailDto",
         "IsRequired": true
       }
     ],
