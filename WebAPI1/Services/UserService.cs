@@ -37,17 +37,15 @@ namespace WebAPI1.Services
             return user;
         }
 
-       
-        public async Task<User> UpdateUserAsync(int id, UpdateUserDto dto)
+        public async Task<User> UpdateUserAsync(UpdateUserDto dto)
         {
-            var user = await _appDbContext.Users.FindAsync(id);
+            var user = await _appDbContext.Users.FindAsync(dto.Id);
             if (user == null)
                 throw new Exception("Usuario no encontrado");
 
-       
             if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email != user.Email)
             {
-                if (await _appDbContext.Users.AnyAsync(u => u.Email == dto.Email && u.Id != id))
+                if (await _appDbContext.Users.AnyAsync(u => u.Email == dto.Email && u.Id != dto.Id))
                     throw new Exception("Email ya registrado por otro usuario");
                 user.Email = dto.Email;
             }
@@ -58,6 +56,27 @@ namespace WebAPI1.Services
             if (!string.IsNullOrWhiteSpace(dto.Password))
                 user.Password = HashPassword(dto.Password);
 
+            _appDbContext.Users.Update(user);
+            await _appDbContext.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<User> UpdateUserEmailAsync(UpdateEmailDto dto)
+        {
+            var user = await _appDbContext.Users.FindAsync(dto.Id);
+            if (user == null)
+                throw new Exception("Usuario no encontrado");
+
+            if (string.IsNullOrWhiteSpace(dto.Email))
+                throw new Exception("Email inválido");
+
+            if (user.Email == dto.Email)
+                return user; 
+
+            if (await _appDbContext.Users.AnyAsync(u => u.Email == dto.Email && u.Id != dto.Id))
+                throw new Exception("Email ya registrado por otro usuario");
+
+            user.Email = dto.Email;
             _appDbContext.Users.Update(user);
             await _appDbContext.SaveChangesAsync();
             return user;

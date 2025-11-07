@@ -14,6 +14,7 @@ namespace WebAPI1.Controllers
             _userService = userService;
         }
 
+       
         [HttpGet("obtener")]
         public async Task<IActionResult> Obtener()
         {
@@ -43,11 +44,11 @@ namespace WebAPI1.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update(int id, UpdateUserDto dto)
+        public async Task<IActionResult> Update(UpdateUserDto dto)
         {
             try
             {
-                var user = await _userService.UpdateUserAsync(id, dto);
+                var user = await _userService.UpdateUserAsync(dto);
                 return Ok(new { message = "Usuario actualizado", user.Id, user.UserName });
             }
             catch (Exception ex)
@@ -57,12 +58,12 @@ namespace WebAPI1.Controllers
         }
 
         [HttpPut("updateemail")]
-        public async Task<IActionResult> Updateemail(int id, UpdateUserDto dto)
+        public async Task<IActionResult> UpdateEmail(UpdateEmailDto dto)
         {
             try
             {
-                var user = await _userService.UpdateUserAsync(id, dto);
-                return Ok(new { message = "Usuario actualizado", user.Id, user.UserName });
+                var user = await _userService.UpdateUserEmailAsync(dto);
+                return Ok(new { message = "Email actualizado", user.Id, user.Email });
             }
             catch (Exception ex)
             {
@@ -70,13 +71,12 @@ namespace WebAPI1.Controllers
             }
         }
 
-
         [HttpDelete("delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(DeleteUserDto dto)
         {
             try
             {
-                await _userService.DeleteUserAsync(id);
+                await _userService.DeleteUserAsync(dto.Id);
                 return Ok(new { message = "Usuario eliminado" });
             }
             catch (Exception ex)
